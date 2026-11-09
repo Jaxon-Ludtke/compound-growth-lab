@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Educational compound growth and investing explorer. Not financial advice.">
+  <title>Compound Growth Lab — Investing Explorer</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">$</span>
+        <div>
+          <p class="brand-kicker">Economics &amp; Investing</p>
+          <h1>Compound Growth Lab</h1>
+        </div>
+      </div>
+      <nav class="nav" aria-label="Page sections">
+        <a href="#calculator">Calculator</a>
+        <a href="#inflation">Inflation</a>
+        <a href="#quiz">Quiz</a>
+        <a href="#concepts">Concepts</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Interactive learning tool</p>
+        <h2>See how steady investing can grow over time</h2>
+        <p>
+          Explore compound growth, inflation’s effect on purchasing power, and a few core investing ideas.
+          Numbers here are educational illustrations — not predictions and not advice.
+        </p>
+      </div>
+      <aside class="hero-card" aria-label="Quick tip">
+        <h3>Why compounding matters</h3>
+        <p>
+          Growth earns more growth. Even modest returns, left alone for years, can outpace simply stacking contributions.
+        </p>
+      </aside>
+    </section>
+
+    <section id="calculator" class="section wrap" aria-labelledby="calc-heading">
+      <div class="section-head">
+        <h2 id="calc-heading">Investment growth calculator</h2>
+        <p>Adjust the inputs to project a simple future value with monthly contributions.</p>
+      </div>
+
+      <div class="panel-grid">
+        <form id="growth-form" class="panel" novalidate>
+          <div class="field">
+            <label for="start-amount">Starting amount ($)</label>
+            <input id="start-amount" name="start" type="number" inputmode="decimal" min="0" max="10000000" step="100" value="5000" required>
+          </div>
+          <div class="field">
+            <label for="monthly">Monthly contribution ($)</label>
+            <input id="monthly" name="monthly" type="number" inputmode="decimal" min="0" max="100000" step="25" value="300" required>
+          </div>
+          <div class="field">
+            <label for="return-rate">Expected annual return (%)</label>
+            <input id="return-rate" name="return" type="number" inputmode="decimal" min="-50" max="50" step="0.1" value="7" required>
+          </div>
+          <div class="field">
+            <label for="years">Years invested</label>
+            <input id="years" name="years" type="number" inputmode="numeric" min="1" max="60" step="1" value="20" required>
+          </div>
+          <button type="submit" class="btn primary">Update projection</button>
+          <p class="form-note">Assumes returns are applied monthly and contributions are made at the end of each month. Real markets move up and down.</p>
+        </form>
+
+        <div class="panel results" aria-live="polite">
+          <h3>Projection summary</h3>
+          <dl class="stat-list">
+            <div>
+              <dt>Future value</dt>
+              <dd id="future-value">—</dd>
+            </div>
+            <div>
+              <dt>Total contributions</dt>
+              <dd id="total-contributions">—</dd>
+            </div>
+            <div>
+              <dt>Estimated growth</dt>
+              <dd id="estimated-growth">—</dd>
+            </div>
+          </dl>
+          <div class="chart-wrap">
+            <canvas id="growth-chart" width="640" height="280" role="img" aria-label="Line chart of portfolio value over time"></canvas>
+          </div>
+          <p id="chart-caption" class="chart-caption"></p>
+        </div>
+      </div>
+    </section>
+
+    <section id="inflation" class="section wrap" aria-labelledby="inflation-heading">
+      <div class="section-head">
+        <h2 id="inflation-heading">Inflation &amp; purchasing power</h2>
+        <p>Same dollar amount buys less over time when prices rise. See what today’s money might feel like later.</p>
+      </div>
+
+      <div class="panel-grid">
+        <form id="inflation-form" class="panel" novalidate>
+          <div class="field">
+            <label for="today-amount">Amount today ($)</label>
+            <input id="today-amount" name="today" type="number" inputmode="decimal" min="0" max="10000000" step="10" value="1000" required>
+          </div>
+          <div class="field">
+            <label for="inflation-rate">Average annual inflation (%)</label>
+            <input id="inflation-rate" name="inflation" type="number" inputmode="decimal" min="0" max="30" step="0.1" value="3" required>
+          </div>
+          <div class="field">
+            <label for="inflation-years">Years from now</label>
+            <input id="inflation-years" name="years" type="number" inputmode="numeric" min="1" max="60" step="1" value="20" required>
+          </div>
+          <button type="submit" class="btn primary">Show purchasing power</button>
+        </form>
+
+        <div class="panel results" aria-live="polite">
+          <h3>What that money can buy</h3>
+          <p id="inflation-result" class="inflation-result">Enter values and update to see the result.</p>
+          <ul class="concept-list compact">
+            <li><strong>Nominal dollars</strong> are the face value you see on a statement.</li>
+            <li><strong>Real purchasing power</strong> is what those dollars can actually buy after inflation.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="quiz" class="section wrap" aria-labelledby="quiz-heading">
+      <div class="section-head">
+        <h2 id="quiz-heading">Quick check: compounding, inflation, diversification</h2>
+        <p>Four short questions. Pick an answer, then check your score.</p>
+      </div>
+
+      <form id="quiz-form" class="panel quiz-panel">
+        <fieldset class="quiz-q">
+          <legend>1. If your investment earns a return, and that return itself earns a return later, that effect is called:</legend>
+          <label><input type="radio" name="q1" value="a"> Diversification</label>
+          <label><input type="radio" name="q1" value="b"> Compounding</label>
+          <label><input type="radio" name="q1" value="c"> Inflation</label>
+        </fieldset>
+
+        <fieldset class="quiz-q">
+          <legend>2. Over long periods, inflation tends to:</legend>
+          <label><input type="radio" name="q2" value="a"> Raise the purchasing power of cash left under a mattress</label>
+          <label><input type="radio" name="q2" value="b"> Leave purchasing power unchanged</label>
+          <label><input type="radio" name="q2" value="c"> Reduce what a fixed amount of cash can buy</label>
+        </fieldset>
+
+        <fieldset class="quiz-q">
+          <legend>3. Spreading money across different kinds of investments is mainly meant to:</legend>
+          <label><input type="radio" name="q3" value="a"> Guarantee higher returns every year</label>
+          <label><input type="radio" name="q3" value="b"> Reduce the impact of any single investment doing poorly</label>
+          <label><input type="radio" name="q3" value="c"> Eliminate all market risk</label>
+        </fieldset>
+
+        <fieldset class="quiz-q">
+          <legend>4. Starting to invest earlier (with the same monthly amount) usually helps because:</legend>
+          <label><input type="radio" name="q4" value="a"> Markets only rise in early adulthood</label>
+          <label><input type="radio" name="q4" value="b"> More years give compounding more time to work</label>
+          <label><input type="radio" name="q4" value="c"> Brokers charge lower fees to younger investors</label>
+        </fieldset>
+
+        <div class="quiz-actions">
+          <button type="submit" class="btn primary">Check answers</button>
+          <button type="reset" class="btn ghost">Reset quiz</button>
+        </div>
+        <p id="quiz-result" class="quiz-result" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section id="concepts" class="section wrap" aria-labelledby="concepts-heading">
+      <div class="section-head">
+        <h2 id="concepts-heading">Core ideas in plain language</h2>
+      </div>
+      <div class="cards">
+        <article class="card">
+          <h3>Compound growth</h3>
+          <p>Returns can generate additional returns. Time is often the biggest multiplier when contributions stay consistent.</p>
+        </article>
+        <article class="card">
+          <h3>Risk and return</h3>
+          <p>Higher expected returns usually come with more ups and downs. Past performance does not promise future results.</p>
+        </article>
+        <article class="card">
+          <h3>Diversification</h3>
+          <p>Owning a mix of assets can soften the blow when one holding struggles, though it does not remove risk entirely.</p>
+        </article>
+        <article class="card">
+          <h3>Inflation awareness</h3>
+          <p>Cash that earns less than inflation slowly loses buying power. Comparing real (after-inflation) outcomes matters.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p class="disclaimer">
+        <strong>Disclaimer:</strong> This site is an educational tool for a school assignment.
+        It is not financial, investment, tax, or legal advice. Do not use it to make real investing decisions.
+        No personal account data is collected or stored.
+      </p>
+      <p class="footer-meta">Compound Growth Lab · Client-side demo · Built for learning</p>
+    </div>
+  </footer>
+
+  <script src="app.js" defer></script>
+</body>
+</html>

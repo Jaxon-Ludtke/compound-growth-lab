@@ -1,1 +1,1 @@
-# compound-growth-lab
+Compound Growth Lab - an educational, client-side site for exploring compound growth, inflation, and investing basics. Not financial advice. Live site: https://jaxon-ludtke.github.io/compound-growth-lab/
