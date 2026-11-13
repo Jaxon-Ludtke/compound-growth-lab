@@ -365,7 +365,7 @@
 
     var text = "You got " + String(score) + " out of " + String(keys.length) + " correct.";
     if (score === keys.length) {
-      text += " Nice work — compounding, inflation, and diversification are solid foundations.";
+      text += " Nice work - compounding, inflation, and diversification are solid foundations.";
       resultEl.classList.add("ok");
     } else {
       text += " Review the concept cards below and try once more.";
