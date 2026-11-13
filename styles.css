@@ -187,8 +187,6 @@ canvas {
 /* The tip card, the form panels, and the concept cards share the white box look. */
 .hero-card,
 .panel,
-
-/* Padding inside one concept card. */
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -442,6 +440,7 @@ input[type="number"]:focus {
   gap: 0.9rem;
 }
 
+/* Padding inside one concept card. */
 .card {
   padding: 1.05rem 1.1rem;
 }
