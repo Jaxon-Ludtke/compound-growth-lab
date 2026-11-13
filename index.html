@@ -70,7 +70,10 @@
             <label for="years">Years invested</label>
             <input id="years" name="years" type="number" inputmode="numeric" min="1" max="60" step="1" value="20" required>
           </div>
-          <button type="submit" class="btn primary">Update projection</button>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Update projection</button>
+            <button type="button" id="reset-saved" class="btn ghost">Reset saved data</button>
+          </div>
           <p class="form-note">Assumes returns are applied monthly and contributions are made at the end of each month. Real markets move up and down.</p>
         </form>
 
@@ -168,10 +171,11 @@
         </fieldset>
 
         <div class="quiz-actions">
-          <button type="submit" class="btn primary">Check answers</button>
+          <button type="submit" id="check-answers" class="btn primary">Check answers</button>
           <button type="reset" class="btn ghost">Reset quiz</button>
         </div>
         <p id="quiz-result" class="quiz-result" role="status" aria-live="polite"></p>
+        <p id="best-quiz-score" class="best-score"></p>
       </form>
     </section>
 

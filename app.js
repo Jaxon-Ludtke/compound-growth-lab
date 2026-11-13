@@ -34,6 +34,100 @@
     }
   }
 
+  function saveCalculatorInputs(inputs) {
+    try {
+      localStorage.setItem("cgl.calculatorInputs", JSON.stringify(inputs));
+    } catch (err) {
+      return;
+    }
+  }
+
+  function restoreCalculatorInputs() {
+    var saved = null;
+    try {
+      var raw = localStorage.getItem("cgl.calculatorInputs");
+      if (!raw) {
+        return;
+      }
+      saved = JSON.parse(raw);
+    } catch (err) {
+      return;
+    }
+    if (!saved || typeof saved !== "object") {
+      return;
+    }
+    if (saved.start !== undefined && saved.start !== null) {
+      document.getElementById("start-amount").value = saved.start;
+    }
+    if (saved.monthly !== undefined && saved.monthly !== null) {
+      document.getElementById("monthly").value = saved.monthly;
+    }
+    if (saved.annualRatePct !== undefined && saved.annualRatePct !== null) {
+      document.getElementById("return-rate").value = saved.annualRatePct;
+    }
+    if (saved.years !== undefined && saved.years !== null) {
+      document.getElementById("years").value = saved.years;
+    }
+  }
+
+  function readBestQuizScore() {
+    try {
+      var raw = localStorage.getItem("cgl.bestQuizScore");
+      if (raw == null || raw === "") {
+        return null;
+      }
+      var score = Number(raw);
+      if (!Number.isFinite(score)) {
+        return null;
+      }
+      return score;
+    } catch (err) {
+      return null;
+    }
+  }
+
+  function showBestQuizScore(score) {
+    var total = Object.keys(QUIZ_ANSWERS).length;
+    if (score == null) {
+      setText("best-quiz-score", "");
+      return;
+    }
+    setText("best-quiz-score", "Best score: " + String(score) + "/" + String(total));
+  }
+
+  function saveBestQuizScore(score) {
+    var best = score;
+    var previous = readBestQuizScore();
+    if (previous != null && previous > best) {
+      best = previous;
+    }
+    try {
+      localStorage.setItem("cgl.bestQuizScore", String(best));
+    } catch (err) {
+      showBestQuizScore(best);
+      return;
+    }
+    showBestQuizScore(best);
+  }
+
+  function resetSavedData(event) {
+    if (event) {
+      event.preventDefault();
+    }
+    document.getElementById("start-amount").value = "5000";
+    document.getElementById("monthly").value = "300";
+    document.getElementById("return-rate").value = "7";
+    document.getElementById("years").value = "20";
+    showBestQuizScore(null);
+    updateGrowth();
+    try {
+      localStorage.removeItem("cgl.calculatorInputs");
+      localStorage.removeItem("cgl.bestQuizScore");
+    } catch (err) {
+      return;
+    }
+  }
+
   function readGrowthInputs() {
     return {
       start: clampNumber(document.getElementById("start-amount").value, 0, 10000000, 0),
@@ -163,6 +257,9 @@
         "% average annual return (simplified model)."
     );
     drawChart(result.yearlyValues);
+    if (event) {
+      saveCalculatorInputs(inputs);
+    }
   }
 
   function updateInflation(event) {
@@ -236,6 +333,7 @@
       resultEl.classList.add("partial");
     }
     resultEl.textContent = text;
+    saveBestQuizScore(score);
   }
 
   function resetQuizResult() {
@@ -263,7 +361,13 @@
         window.setTimeout(resetQuizResult, 0);
       });
     }
+    var resetSavedButton = document.getElementById("reset-saved");
+    if (resetSavedButton) {
+      resetSavedButton.addEventListener("click", resetSavedData);
+    }
 
+    restoreCalculatorInputs();
+    showBestQuizScore(readBestQuizScore());
     updateGrowth();
     updateInflation();
   }

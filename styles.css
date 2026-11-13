@@ -351,7 +351,8 @@ input[type="number"]:focus {
   color: var(--muted);
 }
 
-.quiz-actions {
+.quiz-actions,
+.form-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
@@ -369,6 +370,12 @@ input[type="number"]:focus {
 
 .quiz-result.partial {
   color: #854d0e;
+}
+
+.best-score {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
 }
 
 .cards {
