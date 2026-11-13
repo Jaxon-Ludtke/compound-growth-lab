@@ -1,3 +1,4 @@
+/* A CSS selector is the bit that picks which elements a rule styles. :root means the whole page. The names below are variables, reused later with the var() function. A CSS variable starts with two minus signs. */
 :root {
   --bg: #f4f7fb;
   --bg-accent: #e8eef8;
@@ -16,16 +17,19 @@
   --font: "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
+/* The * selector means every element. box-sizing: border-box counts padding inside the width, which is easier to reason about. A property is one setting, like margin, and the value comes after the colon. */
 *,
 *::before,
 *::after {
   box-sizing: border-box;
 }
 
+/* When a nav link jumps down the page, smooth makes it scroll instead of snapping. */
 html {
   scroll-behavior: smooth;
 }
 
+/* body is the visible page. margin: 0 removes the white gap browsers add by default. The background is two soft color spots plus the main gray blue. */
 body {
   margin: 0;
   font-family: var(--font);
@@ -37,16 +41,19 @@ body {
   line-height: 1.55;
 }
 
+/* Plain links use the blue accent color unless a more specific rule overrides them. */
 a {
   color: var(--accent);
 }
 
+/* Keep pictures and the chart inside their column. display: block drops the little gap that inline images leave. */
 img,
 canvas {
   max-width: 100%;
   display: block;
 }
 
+/* Park the skip link off to the left so you do not see it. A huge negative left does that. */
 .skip-link {
   position: absolute;
   left: -999px;
@@ -57,16 +64,19 @@ canvas {
   z-index: 100;
 }
 
+/* :focus is a state. This only applies while the link is selected with the keyboard, and then we move it back on screen. */
 .skip-link:focus {
   left: 1rem;
   top: 1rem;
 }
 
+/* .wrap matches class="wrap". It caps the width and centers the column with auto left and right margins. */
 .wrap {
   width: min(1100px, calc(100% - 2rem));
   margin-inline: auto;
 }
 
+/* sticky pins the header to the top while you scroll. z-index stacks it over the sections. The background is partly see through. */
 .site-header {
   position: sticky;
   top: 0;
@@ -76,6 +86,7 @@ canvas {
   border-bottom: 1px solid rgba(215, 224, 238, 0.9);
 }
 
+/* flex puts the logo and the links in a row. space-between shoves them to opposite ends. */
 .header-inner {
   display: flex;
   align-items: center;
@@ -84,12 +95,14 @@ canvas {
   padding: 0.9rem 0;
 }
 
+/* The dollar tile and the site name sit side by side. */
 .brand {
   display: flex;
   align-items: center;
   gap: 0.85rem;
 }
 
+/* The green square with the dollar sign. place-items centers that character. */
 .brand-mark {
   width: 2.6rem;
   height: 2.6rem;
@@ -102,6 +115,7 @@ canvas {
   box-shadow: 0 8px 18px rgba(15, 110, 86, 0.28);
 }
 
+/* The tiny uppercase label above the title. */
 .brand-kicker {
   margin: 0;
   font-size: 0.75rem;
@@ -110,17 +124,20 @@ canvas {
   color: var(--muted);
 }
 
+/* This selector means an h1 that is inside .brand, so the big page headings are not affected. */
 .brand h1 {
   margin: 0;
   font-size: 1.15rem;
 }
 
+/* The row of section links. flex-wrap lets them fall to a second line on a narrow screen. */
 .nav {
   display: flex;
   flex-wrap: wrap;
   gap: 0.55rem 0.9rem;
 }
 
+/* text-decoration: none removes the underline. */
 .nav a {
   text-decoration: none;
   color: var(--muted);
@@ -128,11 +145,13 @@ canvas {
   font-weight: 600;
 }
 
+/* :hover is the mouse over state. :focus-visible is the keyboard version, so tabbing still shows where you are. */
 .nav a:hover,
 .nav a:focus-visible {
   color: var(--brand-deep);
 }
 
+/* Two columns for the intro. fr units are shares of the leftover width, so the paragraph is wider than the tip card. */
 .hero {
   display: grid;
   grid-template-columns: 1.4fr 0.9fr;
@@ -140,6 +159,7 @@ canvas {
   padding: 2.2rem 0 1rem;
 }
 
+/* Small green label above the headline. */
 .eyebrow {
   margin: 0 0 0.5rem;
   color: var(--brand);
@@ -149,12 +169,14 @@ canvas {
   font-size: 0.8rem;
 }
 
+/* clamp() picks a font size between a minimum and a maximum so the headline fits a phone and a laptop. */
 .hero-copy h2 {
   margin: 0 0 0.75rem;
   font-size: clamp(1.7rem, 3vw, 2.4rem);
   line-height: 1.15;
 }
 
+/* Gray text, and max-width so a line does not stretch all the way across a wide monitor. */
 .hero-copy p,
 .section-head p {
   margin: 0;
@@ -162,8 +184,11 @@ canvas {
   max-width: 48rem;
 }
 
+/* The tip card, the form panels, and the concept cards share the white box look. */
 .hero-card,
 .panel,
+
+/* Padding inside one concept card. */
 .card {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -171,6 +196,7 @@ canvas {
   box-shadow: var(--shadow);
 }
 
+/* Extra padding and a light green fade, only on the tip card. */
 .hero-card {
   padding: 1.25rem 1.35rem;
   background: linear-gradient(180deg, #ffffff, #f3faf7);
@@ -185,33 +211,40 @@ canvas {
   color: var(--muted);
 }
 
+/* Vertical space between the big blocks. */
 .section {
   padding: 1.75rem 0;
 }
 
+/* Room under the heading before the form or cards. */
 .section-head {
   margin-bottom: 1rem;
 }
 
+/* Section titles, a bit smaller than the hero headline. */
 .section-head h2 {
   margin: 0 0 0.35rem;
   font-size: 1.45rem;
 }
 
+/* Form on the left, results on the right. */
 .panel-grid {
   display: grid;
   grid-template-columns: 0.95fr 1.25fr;
   gap: 1rem;
 }
 
+/* Padding so the words do not touch the card border. */
 .panel {
   padding: 1.25rem;
 }
 
+/* Space between one labeled input and the next. */
 .field {
   margin-bottom: 0.95rem;
 }
 
+/* display: block puts the label on its own line above the box. */
 .field label {
   display: block;
   margin-bottom: 0.35rem;
@@ -219,6 +252,7 @@ canvas {
   font-size: 0.95rem;
 }
 
+/* An attribute selector. This only matches number inputs. width: 100% makes them fill the card. */
 input[type="number"] {
   width: 100%;
   border: 1px solid var(--line);
@@ -229,11 +263,13 @@ input[type="number"] {
   background: #fbfcfe;
 }
 
+/* Green outline on the box you are typing in. */
 input[type="number"]:focus {
   outline: 2px solid rgba(15, 110, 86, 0.35);
   border-color: var(--brand);
 }
 
+/* Shared button shape. cursor: pointer is the hand cursor. */
 .btn {
   border: 0;
   border-radius: 999px;
@@ -243,22 +279,26 @@ input[type="number"]:focus {
   cursor: pointer;
 }
 
+/* Two classes on the same element. These are the green action buttons. */
 .btn.primary {
   background: var(--brand);
   color: #fff;
 }
 
+/* Darker green while you hover or tab onto a main button. */
 .btn.primary:hover,
 .btn.primary:focus-visible {
   background: var(--brand-deep);
 }
 
+/* The quieter buttons, like the resets. No fill, just a gray outline. */
 .btn.ghost {
   background: transparent;
   color: var(--muted);
   border: 1px solid var(--line);
 }
 
+/* The small gray notes under the form, the chart, and in the footer. */
 .form-note,
 .chart-caption,
 .footer-meta {
@@ -270,10 +310,12 @@ input[type="number"]:focus {
   margin: 0.9rem 0 0;
 }
 
+/* Pulls the results heading closer to the numbers. */
 .results h3 {
   margin: 0 0 1rem;
 }
 
+/* Three equal boxes in a row for the projection totals. */
 .stat-list {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -281,24 +323,28 @@ input[type="number"]:focus {
   margin: 0 0 1.1rem;
 }
 
+/* Each total gets a tinted background. */
 .stat-list div {
   background: var(--bg-accent);
   border-radius: 14px;
   padding: 0.85rem;
 }
 
+/* dt is the small label, like "Future value". */
 .stat-list dt {
   margin: 0;
   color: var(--muted);
   font-size: 0.82rem;
 }
 
+/* dd is the big number under that label. */
 .stat-list dd {
   margin: 0.25rem 0 0;
   font-size: 1.2rem;
   font-weight: 750;
 }
 
+/* The frame around the canvas chart. */
 .chart-wrap {
   background: linear-gradient(180deg, #f8fbff, #eef4ff);
   border: 1px solid var(--line);
@@ -310,11 +356,13 @@ input[type="number"]:focus {
   margin: 0.7rem 0 0;
 }
 
+/* The sentence the script writes for the inflation example. */
 .inflation-result {
   margin: 0 0 1rem;
   font-size: 1.05rem;
 }
 
+/* The two short definitions under that sentence. */
 .concept-list {
   margin: 0;
   padding-left: 1.15rem;
@@ -325,11 +373,13 @@ input[type="number"]:focus {
   margin-top: 0.45rem;
 }
 
+/* Stacks the questions with a gap. */
 .quiz-panel {
   display: grid;
   gap: 1rem;
 }
 
+/* The box around one quiz question. */
 .quiz-q {
   margin: 0;
   border: 1px solid var(--line);
@@ -338,11 +388,13 @@ input[type="number"]:focus {
   background: #fbfdff;
 }
 
+/* The question text. A legend is the caption of a fieldset. */
 .quiz-q legend {
   padding: 0 0.25rem;
   font-weight: 700;
 }
 
+/* Each answer on its own line, with the radio circle and the words in a row. */
 .quiz-q label {
   display: flex;
   gap: 0.55rem;
@@ -351,6 +403,7 @@ input[type="number"]:focus {
   color: var(--muted);
 }
 
+/* The quiz buttons and the calculator buttons share this. flex with gap puts space between them and lets them wrap. */
 .quiz-actions,
 .form-actions {
   display: flex;
@@ -358,26 +411,31 @@ input[type="number"]:focus {
   gap: 0.65rem;
 }
 
+/* The score sentence. min-height reserves a line so the page does not jump when text shows up. */
 .quiz-result {
   min-height: 1.5rem;
   margin: 0;
   font-weight: 650;
 }
 
+/* Green text when every answer is right. */
 .quiz-result.ok {
   color: var(--brand-deep);
 }
 
+/* Brown text when you missed some, or when you left one blank. */
 .quiz-result.partial {
   color: #854d0e;
 }
 
+/* The smaller "Best score" line under the quiz result. */
 .best-score {
   margin: 0.35rem 0 0;
   color: var(--muted);
   font-size: 0.9rem;
 }
 
+/* Four concept cards across. */
 .cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -399,6 +457,7 @@ input[type="number"]:focus {
   font-size: 0.95rem;
 }
 
+/* A line above the disclaimer and some space at the bottom. */
 .site-footer {
   margin-top: 1.5rem;
   padding: 1.5rem 0 2rem;
@@ -406,12 +465,14 @@ input[type="number"]:focus {
   background: rgba(255, 255, 255, 0.55);
 }
 
+/* The warning that this is not real financial advice. */
 .disclaimer {
   margin: 0 0 0.65rem;
   color: var(--muted);
   font-size: 0.92rem;
 }
 
+/* A media query is a rule that only applies when the screen matches. Under 900px the columns stack into one, which is the phone layout. */
 @media (max-width: 900px) {
   .hero,
   .panel-grid,
@@ -429,6 +490,7 @@ input[type="number"]:focus {
   }
 }
 
+/* A little tighter spacing on a very small screen. */
 @media (max-width: 600px) {
   .nav {
     gap: 0.45rem 0.75rem;

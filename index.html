@@ -1,17 +1,33 @@
+<!-- This file is just the page structure. HTML tags name each piece, like a header or a form. The colors live in styles.css and the math lives in app.js. -->
 <!DOCTYPE html>
 <html lang="en">
+
+<!-- The head is not shown on the page. It holds the title, a short description, and the link to the stylesheet. -->
 <head>
+
+  <!-- charset tells the browser which set of letters to use so punctuation shows up right. -->
   <meta charset="UTF-8">
+
+  <!-- viewport makes the phone browser use the real screen width instead of a tiny desktop preview. -->
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Educational compound growth and investing explorer. Not financial advice.">
   <title>Compound Growth Lab — Investing Explorer</title>
+
+  <!-- An attribute is extra info inside a tag. href is the file path. This link pulls in the CSS. -->
   <link rel="stylesheet" href="styles.css">
 </head>
+
+<!-- Everything you can see sits in the body. -->
 <body>
+
+  <!-- Skip link for keyboard users. It jumps to the main content. CSS hides it until it is focused. -->
   <a class="skip-link" href="#main">Skip to main content</a>
 
+  <!-- The header is the top bar. The links use href="#calculator" style paths, so they scroll to a section on this same page. -->
   <header class="site-header">
     <div class="wrap header-inner">
+
+      <!-- The site name. aria-hidden on the dollar sign means screen readers skip that decoration. -->
       <div class="brand">
         <span class="brand-mark" aria-hidden="true">$</span>
         <div>
@@ -19,6 +35,8 @@
           <h1>Compound Growth Lab</h1>
         </div>
       </div>
+
+      <!-- nav is the list of jumps. aria-label names the group for someone who cannot see the layout. -->
       <nav class="nav" aria-label="Page sections">
         <a href="#calculator">Calculator</a>
         <a href="#inflation">Inflation</a>
@@ -28,7 +46,10 @@
     </div>
   </header>
 
+  <!-- main wraps the real content. An id is a unique name. The skip link looks for id="main". -->
   <main id="main">
+
+    <!-- A section is one topic. This first one is the intro. The aside is the small tip card beside the paragraph. -->
     <section class="hero wrap">
       <div class="hero-copy">
         <p class="eyebrow">Interactive learning tool</p>
@@ -46,6 +67,7 @@
       </aside>
     </section>
 
+    <!-- Calculator section. aria-labelledby points at the heading so assistive tech can name the section. -->
     <section id="calculator" class="section wrap" aria-labelledby="calc-heading">
       <div class="section-head">
         <h2 id="calc-heading">Investment growth calculator</h2>
@@ -53,8 +75,12 @@
       </div>
 
       <div class="panel-grid">
+
+        <!-- A form groups the inputs. novalidate turns off the browser popup so app.js can check the numbers itself. The id is how the script finds this form. -->
         <form id="growth-form" class="panel" novalidate>
           <div class="field">
+
+            <!-- The label's for attribute matches the input id, so clicking the words focuses the box. value is the starting number. -->
             <label for="start-amount">Starting amount ($)</label>
             <input id="start-amount" name="start" type="number" inputmode="decimal" min="0" max="10000000" step="100" value="5000" required>
           </div>
@@ -70,6 +96,8 @@
             <label for="years">Years invested</label>
             <input id="years" name="years" type="number" inputmode="numeric" min="1" max="60" step="1" value="20" required>
           </div>
+
+          <!-- Update projection submits the form. Reset saved data is type="button" so it does not submit. It clears the saved calculator numbers and the best quiz score. -->
           <div class="form-actions">
             <button type="submit" class="btn primary">Update projection</button>
             <button type="button" id="reset-saved" class="btn ghost">Reset saved data</button>
@@ -77,6 +105,7 @@
           <p class="form-note">Assumes returns are applied monthly and contributions are made at the end of each month. Real markets move up and down.</p>
         </form>
 
+        <!-- aria-live tells a screen reader to speak when these totals change. The dd elements start as a dash until the script fills them in. -->
         <div class="panel results" aria-live="polite">
           <h3>Projection summary</h3>
           <dl class="stat-list">
@@ -94,6 +123,8 @@
             </div>
           </dl>
           <div class="chart-wrap">
+
+            <!-- A canvas is a drawing box. app.js draws the line chart here. It is not an image file. -->
             <canvas id="growth-chart" width="640" height="280" role="img" aria-label="Line chart of portfolio value over time"></canvas>
           </div>
           <p id="chart-caption" class="chart-caption"></p>
@@ -101,6 +132,7 @@
       </div>
     </section>
 
+    <!-- Inflation section. Same kind of form as the calculator, but these numbers are not saved. -->
     <section id="inflation" class="section wrap" aria-labelledby="inflation-heading">
       <div class="section-head">
         <h2 id="inflation-heading">Inflation &amp; purchasing power</h2>
@@ -124,6 +156,7 @@
           <button type="submit" class="btn primary">Show purchasing power</button>
         </form>
 
+        <!-- The sentence and the two definitions update in place when you change the inflation inputs. -->
         <div class="panel results" aria-live="polite">
           <h3>What that money can buy</h3>
           <p id="inflation-result" class="inflation-result">Enter values and update to see the result.</p>
@@ -135,12 +168,14 @@
       </div>
     </section>
 
+    <!-- Quiz section. Four questions, then a score. -->
     <section id="quiz" class="section wrap" aria-labelledby="quiz-heading">
       <div class="section-head">
         <h2 id="quiz-heading">Quick check: compounding, inflation, diversification</h2>
         <p>Four short questions. Pick an answer, then check your score.</p>
       </div>
 
+      <!-- Each fieldset is one question. Radio buttons that share a name act as one group, so only one answer stays selected. -->
       <form id="quiz-form" class="panel quiz-panel">
         <fieldset class="quiz-q">
           <legend>1. If your investment earns a return, and that return itself earns a return later, that effect is called:</legend>
@@ -170,6 +205,7 @@
           <label><input type="radio" name="q4" value="c"> Brokers charge lower fees to younger investors</label>
         </fieldset>
 
+        <!-- Check answers submits this form. Reset quiz clears the picked answers. The best score paragraph under the result is filled by the script. -->
         <div class="quiz-actions">
           <button type="submit" id="check-answers" class="btn primary">Check answers</button>
           <button type="reset" class="btn ghost">Reset quiz</button>
@@ -179,6 +215,7 @@
       </form>
     </section>
 
+    <!-- Concept cards are just reading. No inputs and no saved data here. -->
     <section id="concepts" class="section wrap" aria-labelledby="concepts-heading">
       <div class="section-head">
         <h2 id="concepts-heading">Core ideas in plain language</h2>
@@ -204,6 +241,7 @@
     </section>
   </main>
 
+  <!-- Footer disclaimer. The page is a school demo and it does not send what you type to a server. -->
   <footer class="site-footer">
     <div class="wrap">
       <p class="disclaimer">
@@ -215,6 +253,7 @@
     </div>
   </footer>
 
+  <!-- script loads app.js. defer means the browser downloads it without freezing the page, then runs it after the HTML is parsed. -->
   <script src="app.js" defer></script>
 </body>
 </html>
